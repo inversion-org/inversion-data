@@ -9,9 +9,17 @@
             get { return _state == StoreState.Started; }
         }
 
+        public bool HasStopped
+        {
+            get { return _state == StoreState.Stopped; }
+        }
+
         public virtual void Start()
         {
-            if (_state == StoreState.Started) throw new StoreStartedException("The store you are attempting to start has already been started.");
+            if (_state == StoreState.Started)
+            {
+                throw new StoreStartedException("The store you are attempting to start has already been started.");
+            }
 
             _state = StoreState.Started;
         }
