@@ -7,7 +7,7 @@
     <ProjectGuid>{1BDF9896-7D98-4BFA-B64B-DD31F79739F9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Inversion</RootNamespace>
+    <RootNamespace>Inversion.Data</RootNamespace>
     <AssemblyName>Inversion.Data.Sql</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -42,11 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\DataReaderEx.cs" />
-    <Compile Include="Data\ISqlStore.cs" />
-    <Compile Include="Data\TransactionWrapper.cs" />
+    <Compile Include="DataReaderEx.cs" />
+    <Compile Include="ISqlStore.cs" />
+    <Compile Include="TransactionWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\SqlStore.cs" />
+    <Compile Include="SqlStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Inversion.Data\Inversion.Data.csproj">
