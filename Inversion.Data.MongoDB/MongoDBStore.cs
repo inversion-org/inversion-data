@@ -6,27 +6,17 @@ namespace Inversion.Data
     public class MongoDBStore : Store
     {
         private readonly MongoClient _client;
-        private readonly IMongoDatabase _db;
+        protected readonly IMongoDatabase Database;
 
         public IMongoCollection<BsonDocument> this[string collectionName]
         {
             get { return this.Database.GetCollection<BsonDocument>(collectionName); }
         }
 
-        public MongoClient Client
-        {
-            get { return _client; }
-        }
-
-        public IMongoDatabase Database
-        {
-            get { return _db; }
-        }
-
         public MongoDBStore(string connStr, string dbName)
         {
             _client = new MongoClient(connStr);
-            _db = _client.GetDatabase(dbName);
+            this.Database = _client.GetDatabase(dbName);
         }
 
         public sealed override void Dispose()
