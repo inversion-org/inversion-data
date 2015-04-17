@@ -5,8 +5,9 @@ namespace Inversion.Data
 {
     public class MongoDBStore : Store
     {
-        private MongoClient _client;
         protected IMongoDatabase Database;
+        private MongoClient _client;
+
         private readonly string _connStr;
         private readonly string _dbName;
 
@@ -39,7 +40,8 @@ namespace Inversion.Data
 
         public sealed override void Dispose()
         {
-            // nothing to do
+            // nothing to dispose of
+            base.Stop();
         }
     }
 }
