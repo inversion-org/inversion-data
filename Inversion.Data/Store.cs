@@ -16,7 +16,7 @@
 
         public virtual void Start()
         {
-            if (_state == StoreState.Started)
+            if (this.HasStarted)
             {
                 throw new StoreStartedException("The store you are attempting to start has already been started.");
             }
@@ -26,7 +26,7 @@
 
         public virtual void Stop()
         {
-            if (_state == StoreState.Started)
+            if (this.HasStarted)
             {
                 _state = StoreState.Stopped;
             }
