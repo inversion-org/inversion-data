@@ -53,6 +53,7 @@
     <Compile Include="StoreStoppedException.cs" />
     <Compile Include="StoreStartedException.cs" />
     <Compile Include="StoreState.cs" />
+    <Compile Include="SyncBaseStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
