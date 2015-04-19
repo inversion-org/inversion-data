@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Harness.Example.Model;
 using Harness.Example.Store;
 
@@ -27,9 +25,9 @@ namespace Harness.Example
         {
             Words = LoadDictionary(DictionaryFilename);
 
-            //PopulateUsers(100);          
+            PopulateUsers(100);          
 
-            Users = ReadUsers().ToList();
+            Users = ReadUsers();
 
             UpdateUsers();
 
@@ -86,13 +84,13 @@ namespace Harness.Example
             }
         }
 
-        static IEnumerable<User> ReadUsers()
+        static List<User> ReadUsers()
         {
             using (IUserStore userStore = new MongoDBUserStore(ConnectionString, DatabaseName, CollectionName))
             {
                 userStore.Start();
 
-                return userStore.GetAll();
+                return userStore.GetAll().ToList();
             }
         }
 

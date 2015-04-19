@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Inversion.Data;
 using Harness.Example.Model;
@@ -11,7 +13,7 @@ namespace Harness.Example.Store
     {
         private readonly string _collectionName;
 
-        private IMongoCollection<MongoDBUser> _collection;
+        private IMongoCollection<BsonDocument> _collection;
 
         public MongoDBUserStore(string connStr, string dbName, string collectionName) : base(connStr, dbName)
         {
@@ -21,46 +23,63 @@ namespace Harness.Example.Store
         public override void Start()
         {
             base.Start();
-            _collection = this.Database.GetCollection<MongoDBUser>(_collectionName);
+            _collection = this.Database.GetCollection<BsonDocument>(_collectionName);
         }
 
         public User Get(string username)
         {
-            return _collection.Find(x => x.Username == username).FirstAsync().Result;
+            AssertIsStarted();
+            return _collection.Find(x => x["username"] == username).FirstAsync().Result.ConvertBsonToUser();
         }
 
         public IEnumerable<User> GetAll()
         {
-            return _collection.FindAsync(x => true).Result.ToListAsync().Result.Select(x => x.ToModel());
+            AssertIsStarted();
+
+            return
+                _collection.FindAsync(new BsonDocument())
+                    .Result.ToListAsync()
+                    .Result.Select(doc => doc.ConvertBsonToUser());
         }
 
         public void Put(User user)
         {
-            MongoDBUser result = _collection.Find(x => x.Username == user.Username).SingleOrDefaultAsync().Result;
+            AssertIsStarted();
+            BsonDocument result = _collection.Find(x => x["username"] == user.Username).FirstAsync().Result;
 
             if(result == null)
             {
                 // user with this username does not exist
-                _collection.InsertOneAsync(new MongoDBUser(user)).Wait();
+                Task.Factory.StartNew(
+                    async () => await _collection
+                        .InsertOneAsync(user.ConvertUserToBson())).Wait();
             }
             else
             {
                 // replace the document
-                MongoDBUser replacement = new MongoDBUser(user);
-                replacement.Id = result.Id;
+                BsonDocument replacement = user.ConvertUserToBson();
+                replacement["_id"] = result["_id"];
 
-                _collection.ReplaceOneAsync(x => x.Id == result.Id, replacement).Wait();
+                Task.Factory.StartNew(
+                    async () => await _collection
+                        .ReplaceOneAsync(x => x["_id"] == replacement["_id"], replacement)).Wait();
             }
         }
 
         public void Put(IEnumerable<User> users)
         {
-            _collection.InsertManyAsync(users.Select(x => new MongoDBUser(x))).Wait();
+            AssertIsStarted();
+            Task.Factory.StartNew(
+                async () => await _collection
+                    .InsertManyAsync(users.Select(x => x.ConvertUserToBson()))).Wait();
         }
 
         public void Delete(User user)
         {
-            _collection.DeleteOneAsync(x => x.Username == user.Username).Wait();
+            AssertIsStarted();
+            Task.Factory.StartNew(
+                async () => await _collection
+                    .DeleteOneAsync(x => x["username"] == user.Username)).Wait();
         }
     }
 }
