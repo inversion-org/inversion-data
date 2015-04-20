@@ -40,13 +40,5 @@ namespace Inversion.Data
             // nothing to dispose of
             base.Stop();
         }
-
-        protected void AssertIsStarted()
-        {
-            if (!this.HasStarted)
-            {
-                throw new StoreProcessException("The store must be started to use it.");
-            }
-        }
     }
 }
