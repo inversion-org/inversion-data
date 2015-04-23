@@ -1,10 +1,12 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+
 using MongoDB.Bson;
 using MongoDB.Driver;
+
 using Inversion.Data;
+
 using Harness.Example.Model;
 
 namespace Harness.Example.Store
@@ -29,7 +31,9 @@ namespace Harness.Example.Store
         public User Get(string username)
         {
             AssertIsStarted();
-            return _collection.Find(x => x["username"] == username).FirstAsync().Result.ConvertBsonToUser();
+            return _collection
+                .Find(x => x["username"] == username)
+                .FirstAsync().Result.ConvertBsonToUser();
         }
 
         public IEnumerable<User> GetAll()
@@ -50,9 +54,8 @@ namespace Harness.Example.Store
             if(result == null)
             {
                 // user with this username does not exist
-                Task.Factory.StartNew(
-                    async () => await _collection
-                        .InsertOneAsync(user.ConvertUserToBson())).Wait();
+                Task.Run(async () =>
+                    await _collection.InsertOneAsync(user.ConvertUserToBson())).Wait();
             }
             else
             {
@@ -60,26 +63,26 @@ namespace Harness.Example.Store
                 BsonDocument replacement = user.ConvertUserToBson();
                 replacement["_id"] = result["_id"];
 
-                Task.Factory.StartNew(
-                    async () => await _collection
-                        .ReplaceOneAsync(x => x["_id"] == replacement["_id"], replacement)).Wait();
+                Task.Run(async () =>
+                    await _collection.ReplaceOneAsync(x => x["_id"] == replacement["_id"], replacement))
+                    .Wait();
             }
         }
 
         public void Put(IEnumerable<User> users)
         {
             AssertIsStarted();
-            Task.Factory.StartNew(
-                async () => await _collection
-                    .InsertManyAsync(users.Select(x => x.ConvertUserToBson()))).Wait();
+            Task.Run(async () =>
+                await _collection.InsertManyAsync(users.Select(x => x.ConvertUserToBson())))
+                .Wait();
         }
 
         public void Delete(User user)
         {
             AssertIsStarted();
-            Task.Factory.StartNew(
-                async () => await _collection
-                    .DeleteOneAsync(x => x["username"] == user.Username)).Wait();
+            Task.Run(async () =>
+                await _collection.DeleteOneAsync(x => x["username"] == user.Username))
+                .Wait();
         }
     }
 }

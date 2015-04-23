@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+
 using Inversion.Data;
+
 using Harness.Example.Model;
 
 namespace Harness.Example.Store

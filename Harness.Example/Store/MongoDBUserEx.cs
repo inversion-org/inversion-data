@@ -1,7 +1,7 @@
 ﻿using System.Linq;
+using MongoDB.Bson;
 
 using Harness.Example.Model;
-using MongoDB.Bson;
 
 namespace Harness.Example.Store
 {
