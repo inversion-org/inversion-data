@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\MongoDBUser.cs" />
     <Compile Include="Model\UserMetadata.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Program.cs" />
@@ -68,7 +67,6 @@
     <Compile Include="Store\IUserStore.cs" />
     <Compile Include="Store\MongoDBUserEx.cs" />
     <Compile Include="Store\MongoDBUserStore.cs" />
-    <Compile Include="Store\MongoDBUserStore_WrappedModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

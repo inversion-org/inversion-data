@@ -49,24 +49,8 @@ namespace Harness.Example.Store
         public void Put(User user)
         {
             AssertIsStarted();
-            BsonDocument result = _collection.Find(x => x["username"] == user.Username).FirstAsync().Result;
-
-            if(result == null)
-            {
-                // user with this username does not exist
-                Task.Run(async () =>
-                    await _collection.InsertOneAsync(user.ConvertUserToBson())).Wait();
-            }
-            else
-            {
-                // replace the document
-                BsonDocument replacement = user.ConvertUserToBson();
-                replacement["_id"] = result["_id"];
-
-                Task.Run(async () =>
-                    await _collection.ReplaceOneAsync(x => x["_id"] == replacement["_id"], replacement))
-                    .Wait();
-            }
+            Task.Run(async () =>
+                await _collection.ReplaceOneAsync(new BsonDocument("_id", user.ID), user.ConvertUserToBson())).Wait();
         }
 
         public void Put(IEnumerable<User> users)
@@ -81,7 +65,7 @@ namespace Harness.Example.Store
         {
             AssertIsStarted();
             Task.Run(async () =>
-                await _collection.DeleteOneAsync(x => x["username"] == user.Username))
+                await _collection.DeleteOneAsync(new BsonDocument("_id", user.ID)))
                 .Wait();
         }
     }

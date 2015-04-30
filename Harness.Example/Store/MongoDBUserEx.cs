@@ -10,7 +10,7 @@ namespace Harness.Example.Store
         public static BsonDocument ConvertUserToBson(this User user)
         {
             BsonDocument doc = new BsonDocument();
-            doc["_id"] = new BsonObjectId(ObjectId.GenerateNewId());
+            doc["_id"] = user.ID;
             doc["username"] = user.Username;
             doc["password"] = user.Password;
             doc["metadata"] = new BsonDocument(user.Metadata.Metadata);
@@ -21,6 +21,7 @@ namespace Harness.Example.Store
         {
             User.Builder builder = new User.Builder
             {
+                ID = doc["_id"].AsString,
                 Username = doc["username"].AsString,
                 Password = doc["password"].AsString
             };

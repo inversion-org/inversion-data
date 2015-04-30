@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Harness.Example.Model;
 using Harness.Example.Store;
 
@@ -9,6 +10,7 @@ namespace Harness.Example
 {
     class Program
     {
+        // got my list of words from http://www.winedt.org/Dict/
         const string DictionaryFilename = "..\\..\\words.txt";
 
         const string ConnectionString = "mongodb://localhost";
@@ -27,7 +29,11 @@ namespace Harness.Example
 
             PopulateUsers(100);          
 
-            Users = ReadUsers();
+            //SaveUsers();
+
+            //Users = ReadUsers();
+
+            //ReplaceUser();
 
             UpdateUsers();
 
@@ -35,6 +41,24 @@ namespace Harness.Example
 
             Console.WriteLine("user count = {0}", Users.Count);
             Console.ReadLine();
+        }
+
+        static void ReplaceUser()
+        {
+            User user = Users.FirstOrDefault(x => x.Username == "tub@mopey.me");
+
+            User modifiedUser = user.Mutate(b =>
+            {
+                b.Password = "testing";
+                return b;
+            });
+
+            using (IUserStore userStore = new MongoDBUserStore(ConnectionString, DatabaseName, CollectionName))
+            {
+                userStore.Start();
+
+                userStore.Put(modifiedUser);
+            }
         }
 
         static void PopulateUsers(int total)

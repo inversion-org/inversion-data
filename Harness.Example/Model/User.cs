@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Xml;
-using Inversion;
 using Newtonsoft.Json.Linq;
+
+using Inversion;
 
 namespace Harness.Example.Model
 {
     public class User : IData
     {
+        private readonly string _id;
         private readonly string _username;
         private readonly string _password;
         private readonly UserMetadata _metadata;
 
+        public string ID { get { return _id; } }
         public string Username { get { return _username; } }
         public string Password { get { return _password; } }
 
@@ -18,13 +21,15 @@ namespace Harness.Example.Model
 
         public User(User user)
         {
+            this._id = user.ID;
             this._username = user.Username;
             this._password = user.Password;
             this._metadata = new UserMetadata(user.Metadata);
         }
 
-        public User(string username, string password, UserMetadata metadata)
+        public User(string id, string username, string password, UserMetadata metadata)
         {
+            this._id = id;
             this._username = username;
             this._password = password;
             this._metadata = metadata;
@@ -38,6 +43,7 @@ namespace Harness.Example.Model
 
         public class Builder
         {
+            public string ID { get; set; }
             public string Username { get; set; }
             public string Password { get; set; }
 
@@ -46,17 +52,20 @@ namespace Harness.Example.Model
             public Builder()
             {
                 this.Metadata = new UserMetadata.Builder();
+                this.ID = Guid.NewGuid().ToString();
             }
 
             public Builder(User user)
             {
+                this.ID = user.ID;
                 this.Username = user.Username;
                 this.Password = user.Password;
                 this.Metadata = user.Metadata;
             }
 
-            public Builder(string username, string password, UserMetadata metadata)
+            public Builder(string id, string username, string password, UserMetadata metadata)
             {
+                this.ID = id;
                 this.Username = username;
                 this.Password = password;
                 this.Metadata = new UserMetadata(metadata);
@@ -64,11 +73,12 @@ namespace Harness.Example.Model
 
             public User ToModel()
             {
-                return new User(this.Username, this.Password, this.Metadata);
+                return new User(this.ID, this.Username, this.Password, this.Metadata);
             }
 
             public Builder FromModel(User user)
             {
+                this.ID = user.ID;
                 this.Username = user.Username;
                 this.Password = user.Password;
                 this.Metadata = new UserMetadata(user.Metadata);
@@ -96,6 +106,7 @@ namespace Harness.Example.Model
         {
             writer.WriteStartElement("user");
             
+            writer.WriteElementString("id", this.ID);
             writer.WriteElementString("username", this.Username);
             writer.WriteElementString("password", this.Password);
             
@@ -110,6 +121,7 @@ namespace Harness.Example.Model
             {
                 JObject j = new JObject
                 {
+                    {"id", this.ID},
                     {"username", this.Username},
                     {"password", this.Password},
                     {"metadata", ((IData) (this.Metadata)).Data}
@@ -122,6 +134,8 @@ namespace Harness.Example.Model
         {
             writer.WriteStartObject();
             
+            writer.WritePropertyName("id");
+            writer.WriteValue(this.ID);
             writer.WritePropertyName("username");
             writer.WriteValue(this.Username);
             writer.WritePropertyName("password");
