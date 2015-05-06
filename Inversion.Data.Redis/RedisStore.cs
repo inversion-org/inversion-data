@@ -1,5 +1,4 @@
-﻿using System;
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 
 namespace Inversion.Data.Redis
 {
@@ -34,7 +33,7 @@ namespace Inversion.Data.Redis
         {
             base.Start();
 
-            if (this.ConnectionMultiplexer == null)
+            if (_oneUse && this.ConnectionMultiplexer == null)
             {
                 this.ConnectionMultiplexer = ConnectionMultiplexer.Connect(_connections);
             }
@@ -49,7 +48,10 @@ namespace Inversion.Data.Redis
 
             if (_oneUse)
             {
-                this.ConnectionMultiplexer.Dispose();
+                if (this.ConnectionMultiplexer != null)
+                {
+                    this.ConnectionMultiplexer.Dispose();
+                }
             }
         }
     }
