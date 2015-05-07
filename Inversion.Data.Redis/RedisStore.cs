@@ -1,8 +1,10 @@
-﻿using StackExchange.Redis;
+﻿using System;
+using System.Collections.Generic;
+using StackExchange.Redis;
 
 namespace Inversion.Data.Redis
 {
-    public class RedisStore : Store
+    public class RedisStore : SyncBaseStore
     {
         private readonly string _connections;
 
@@ -10,32 +12,70 @@ namespace Inversion.Data.Redis
 
         protected IDatabase Database { get; private set; }
 
+        private static readonly Dictionary<string, Tuple<ConnectionMultiplexer, int>> ConnectionMultiplexers =
+            new Dictionary<string, Tuple<ConnectionMultiplexer, int>>();
+
         private readonly int _databaseNumber;
 
-        private readonly bool _oneUse;
         private bool _disposed;
 
         public RedisStore(string connections, int databaseNumber)
         {
             _connections = connections;
             _databaseNumber = databaseNumber;
-            _oneUse = true;
         }
 
-        public RedisStore(ConnectionMultiplexer connectionMultiplexer, int databaseNumber)
+        public ConnectionMultiplexer InhabitConnectionMultiplexer()
         {
-            this.ConnectionMultiplexer = connectionMultiplexer;
-            _databaseNumber = databaseNumber;
-            _oneUse = false;
+            try
+            {
+                this.LockSlim.EnterWriteLock();
+
+                if (!RedisStore.ConnectionMultiplexers.ContainsKey(_connections))
+                {
+                    RedisStore.ConnectionMultiplexers[_connections] =
+                        new Tuple<ConnectionMultiplexer, int>(ConnectionMultiplexer.Connect(_connections), 1);
+                }
+                else
+                {
+                    Tuple<ConnectionMultiplexer, int> current = RedisStore.ConnectionMultiplexers[_connections];
+                    RedisStore.ConnectionMultiplexers[_connections] =
+                        new Tuple<ConnectionMultiplexer, int>(current.Item1, current.Item2 + 1);
+                }
+                return RedisStore.ConnectionMultiplexers[_connections].Item1;
+            }
+            finally
+            {
+                this.LockSlim.ExitWriteLock();
+            }
+        }
+
+        public void AbandonConnectionMultiplexer()
+        {
+            try
+            {
+                this.LockSlim.EnterWriteLock();
+
+                if (RedisStore.ConnectionMultiplexers.ContainsKey(_connections))
+                {
+                    Tuple<ConnectionMultiplexer, int> current = RedisStore.ConnectionMultiplexers[_connections];
+                    RedisStore.ConnectionMultiplexers[_connections] =
+                        new Tuple<ConnectionMultiplexer, int>(current.Item1, current.Item2 > 1 ? current.Item2 - 1 : 0);
+                }
+            }
+            finally
+            {
+                this.LockSlim.ExitWriteLock();
+            }
         }
 
         public override void Start()
         {
             base.Start();
 
-            if (_oneUse && this.ConnectionMultiplexer == null)
+            if (this.ConnectionMultiplexer == null)
             {
-                this.ConnectionMultiplexer = ConnectionMultiplexer.Connect(_connections);
+                this.ConnectionMultiplexer = this.InhabitConnectionMultiplexer();
             }
             this.Database = this.ConnectionMultiplexer.GetDatabase(_databaseNumber);
         }
@@ -46,13 +86,7 @@ namespace Inversion.Data.Redis
 
             _disposed = true;
 
-            if (_oneUse)
-            {
-                if (this.ConnectionMultiplexer != null)
-                {
-                    this.ConnectionMultiplexer.Dispose();
-                }
-            }
+            this.AbandonConnectionMultiplexer();
         }
     }
 }
