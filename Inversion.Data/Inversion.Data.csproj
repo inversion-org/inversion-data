@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="IStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Store.cs" />
+    <Compile Include="StoreBase.cs" />
     <Compile Include="StoreProcessException.cs" />
     <Compile Include="StoreStoppedException.cs" />
     <Compile Include="StoreStartedException.cs" />

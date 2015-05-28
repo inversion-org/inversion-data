@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace Inversion.Data
 {
-    public class MongoDBStore : Store
+    public class MongoDBStore : StoreBase
     {
         protected IMongoDatabase Database;
         private MongoClient _client;

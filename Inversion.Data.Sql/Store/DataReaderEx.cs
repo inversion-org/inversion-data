@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Inversion.Data
+namespace Inversion.Data.Store
 {
     public static class DataReaderEx
     {

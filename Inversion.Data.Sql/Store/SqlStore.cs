@@ -3,14 +3,14 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 
-namespace Inversion.Data
+namespace Inversion.Data.Store
 {
     /// <summary>
     /// This is an implementation-agnostic store for dealing with databases that the System.Data.DbProvider client allows access to.
     /// That could mean Microsoft Sql Server, MySQL, PostGres, etc.
     /// The provider factory can be changed during instantiation.
     /// </summary>
-    public class SqlStore : Store, ISqlStore
+    public class SqlStore : StoreBase, ISqlStore
     {
         private bool _isDisposed;
         private DbProviderFactory _factory;
