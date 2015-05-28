@@ -40,10 +40,7 @@
       <HintPath>..\packages\CouchbaseNetClient.2.0.3.1\lib\net45\Couchbase.NetClient.dll</HintPath>
     </Reference>
     <Reference Include="Inversion">
-      <HintPath>..\..\..\..\dlcs\scratch\lib\Inversion\Inversion.dll</HintPath>
-    </Reference>
-    <Reference Include="Inversion.Data">
-      <HintPath>..\..\..\..\dlcs\scratch\lib\Inversion\Inversion.Data.dll</HintPath>
+      <HintPath>..\lib\Inversion.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -63,6 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Inversion.Data\Inversion.Data.csproj">
+      <Project>{1cb68d8f-fbce-4dac-858c-fed6fce48306}</Project>
+      <Name>Inversion.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
