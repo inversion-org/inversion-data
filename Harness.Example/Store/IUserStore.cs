@@ -11,7 +11,6 @@ namespace Harness.Example.Store
         User Get(string username);
         IEnumerable<User> GetAll();
         void Put(User user);
-        void Put(IEnumerable<User> users);
         void Delete(User user);
     }
 }

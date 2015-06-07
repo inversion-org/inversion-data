@@ -104,7 +104,10 @@ namespace Harness.Example
             {
                 userStore.Start();
 
-                userStore.Put(Users);
+                foreach (User user in Users)
+                {
+                    userStore.Put(user);
+                }
             }
         }
 

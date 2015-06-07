@@ -53,14 +53,6 @@ namespace Harness.Example.Store
                 await _collection.ReplaceOneAsync(new BsonDocument("_id", user.ID), user.ConvertUserToBson())).Wait();
         }
 
-        public void Put(IEnumerable<User> users)
-        {
-            AssertIsStarted();
-            Task.Run(async () =>
-                await _collection.InsertManyAsync(users.Select(x => x.ConvertUserToBson())))
-                .Wait();
-        }
-
         public void Delete(User user)
         {
             AssertIsStarted();
