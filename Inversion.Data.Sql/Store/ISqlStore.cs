@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace Inversion.Data
+namespace Inversion.Data.Store
 {
     public interface ISqlStore : IStore
     {

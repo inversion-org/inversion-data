@@ -2,7 +2,7 @@
 
 namespace Inversion.Data
 {
-    public abstract class SyncBaseStore : Store
+    public abstract class SyncBaseStore : StoreBase
     {
         private readonly ReaderWriterLockSlim _lockSlim = new ReaderWriterLockSlim();
 

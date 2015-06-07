@@ -7,7 +7,7 @@ using Couchbase.Core;
 
 namespace Inversion.Data.Couchbase
 {
-    public class CouchbaseStore<T> : Store
+    public class CouchbaseStore<T> : StoreBase
     {
         protected readonly Cluster Cluster;
         protected IBucket Bucket;

@@ -1,6 +1,6 @@
 ﻿namespace Inversion.Data
 {
-    public abstract class Store : IStore
+    public abstract class StoreBase : IStore
     {
         private StoreState _state = StoreState.Unstarted;
 
