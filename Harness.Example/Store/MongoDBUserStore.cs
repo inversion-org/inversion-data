@@ -32,7 +32,7 @@ namespace Harness.Example.Store
         {
             AssertIsStarted();
             return _collection
-                .Find(x => x["username"] == username)
+                .Find(new BsonDocument("username", username))
                 .FirstAsync().Result.ConvertBsonToUser();
         }
 
