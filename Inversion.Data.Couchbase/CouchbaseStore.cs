@@ -7,7 +7,7 @@ using Couchbase.Core;
 
 namespace Inversion.Data.Couchbase
 {
-    public class CouchbaseStore<T> : StoreBase
+    public class CouchbaseStore<T> : StoreBase, IStoreHealth
     {
         protected readonly Cluster Cluster;
         protected IBucket Bucket;
@@ -62,6 +62,21 @@ namespace Inversion.Data.Couchbase
             {
                 this.Cluster.Dispose();
             }
+        }
+
+        public virtual bool GetHealth(out string result)
+        {
+            this.AssertIsStarted();
+
+            result = String.Empty;
+
+            if (this.Cluster.IsOpen(this.BucketName))
+            {
+                return true;
+            }
+
+            result = String.Format("Cluster reports bucket '{0}' not being observed.", this.BucketName);
+            return false;
         }
     }
 }

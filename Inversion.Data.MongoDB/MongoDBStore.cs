@@ -1,9 +1,11 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using System.Collections.Generic;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Inversion.Data
 {
-    public class MongoDBStore : StoreBase
+    public class MongoDBStore : StoreBase, IStoreHealth
     {
         protected IMongoDatabase Database;
         private MongoClient _client;
@@ -39,6 +41,24 @@ namespace Inversion.Data
         {
             // nothing to dispose of
             base.Stop();
+        }
+
+        public virtual bool GetHealth(out string result)
+        {
+            result = String.Empty;
+
+            this.AssertIsStarted();
+
+            IAsyncCursor<BsonDocument> databaseCursor = _client.ListDatabasesAsync().Result;
+
+            List<BsonDocument> databases = databaseCursor.ToListAsync<BsonDocument>().Result;
+
+            if (databases.Count > 0)
+            {
+                return true;
+            }
+            result = "No databases could be found.";
+            return false;
         }
     }
 }

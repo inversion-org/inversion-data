@@ -4,7 +4,7 @@ using StackExchange.Redis;
 
 namespace Inversion.Data.Redis
 {
-    public class RedisStore : SyncBaseStore
+    public class RedisStore : SyncBaseStore, IStoreHealth
     {
         private readonly string _connections;
 
@@ -87,6 +87,22 @@ namespace Inversion.Data.Redis
             _disposed = true;
 
             this.AbandonConnectionMultiplexer();
+        }
+
+        public virtual bool GetHealth(out string result)
+        {
+            result = String.Empty;
+            this.AssertIsStarted();
+
+            TimeSpan ts = this.Database.Ping(CommandFlags.HighPriority);
+
+            if (ts.TotalSeconds < 5)
+            {
+                return true;
+            }
+
+            result = String.Format("ping took {0} milliseconds.", ts.TotalMilliseconds);
+            return false;
         }
     }
 }
