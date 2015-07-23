@@ -57,20 +57,38 @@ namespace Inversion.Data.Store
 
         public static int ReadInt(this IDataReader self, string columnName)
         {
-            int ord = self.GetOrdinal(columnName);
-            return self.IsDBNull(ord) ? default(int) : self.GetInt32(ord);
+            int ordinal = self.GetOrdinal(columnName);
+            return self.IsDBNull(ordinal) ? default(int) : self.GetInt32(ordinal);
+        }
+
+        public static int? ReadIntOrNull(this IDataReader self, string columnName)
+        {
+            int ordinal = self.GetOrdinal(columnName);
+            return self.IsDBNull(ordinal) ? (int?) null : self.GetInt32(ordinal);
         }
 
         public static long ReadLong(this IDataReader self, string columnName)
         {
-            int ord = self.GetOrdinal(columnName);
-            return self.IsDBNull(ord) ? default(long) : self.GetInt64(ord);
+            int ordinal = self.GetOrdinal(columnName);
+            return self.IsDBNull(ordinal) ? default(long) : self.GetInt64(ordinal);
+        }
+
+        public static long? ReadLongOrNull(this IDataReader self, string columnName)
+        {
+            int ordinal = self.GetOrdinal(columnName);
+            return self.IsDBNull(ordinal) ? (long?) null : self.GetInt64(ordinal);
         }
 
         public static float ReadFloat(this IDataReader self, string columnName)
         {
             //return self.GetFloat(self.GetOrdinal(columnName));
             return Convert.ToSingle(self.GetDouble(self.GetOrdinal(columnName)));
+        }
+
+        public static float? ReadFloatOrNull(this IDataReader self, string columnName)
+        {
+            int ordinal = self.GetOrdinal(columnName);
+            return self.IsDBNull(ordinal) ? (float?) null : Convert.ToSingle(self.GetDouble(self.GetOrdinal(columnName)));
         }
 
         /// <summary>
