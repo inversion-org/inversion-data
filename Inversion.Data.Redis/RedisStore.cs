@@ -8,7 +8,7 @@ namespace Inversion.Data.Redis
     {
         private readonly string _connections;
 
-        protected ConnectionMultiplexer ConnectionMultiplexer { get; private set; }
+        protected ConnectionMultiplexer ConnectionMultiplexer { get; set; }
 
         protected IDatabase Database { get; private set; }
 
@@ -27,6 +27,8 @@ namespace Inversion.Data.Redis
 
         public ConnectionMultiplexer InhabitConnectionMultiplexer()
         {
+            ConfigurationOptions options = this.GetConfigurationOptions();
+
             try
             {
                 this.LockSlim.EnterWriteLock();
@@ -34,7 +36,7 @@ namespace Inversion.Data.Redis
                 if (!RedisStore.ConnectionMultiplexers.ContainsKey(_connections))
                 {
                     RedisStore.ConnectionMultiplexers[_connections] =
-                        new Tuple<ConnectionMultiplexer, int>(ConnectionMultiplexer.Connect(_connections), 1);
+                        new Tuple<ConnectionMultiplexer, int>(ConnectionMultiplexer.Connect(options), 1);
                 }
                 else
                 {
@@ -67,6 +69,11 @@ namespace Inversion.Data.Redis
             {
                 this.LockSlim.ExitWriteLock();
             }
+        }
+
+        protected virtual ConfigurationOptions GetConfigurationOptions()
+        {
+            return ConfigurationOptions.Parse(_connections);
         }
 
         public override void Start()
