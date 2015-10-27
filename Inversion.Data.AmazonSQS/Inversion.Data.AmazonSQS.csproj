@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6A6A1008-C2EF-4DF8-BF5F-DFCBDF175090}</ProjectGuid>
+    <ProjectGuid>{2F6FE6B7-A0E4-4B94-9B16-D5FD6037F74B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Inversion.Data</RootNamespace>
-    <AssemblyName>Inversion.Data.DynamoDB</AssemblyName>
+    <AssemblyName>Inversion.Data.AmazonSQS</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,9 +34,12 @@
       <HintPath>..\packages\AWSSDK.Core.3.1.2.1\lib\net45\AWSSDK.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AWSSDK.DynamoDBv2, Version=3.1.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <HintPath>..\packages\AWSSDK.DynamoDBv2.3.1.1.1\lib\net45\AWSSDK.DynamoDBv2.dll</HintPath>
+    <Reference Include="AWSSDK.SQS, Version=3.1.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.SQS.3.1.0.2\lib\net45\AWSSDK.SQS.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Inversion">
+      <HintPath>..\lib\Inversion.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamoDBStore.cs" />
+    <Compile Include="AmazonSQSStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
