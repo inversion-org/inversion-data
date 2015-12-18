@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="StackExchange.Redis">
-      <HintPath>..\packages\StackExchange.Redis.1.0.414\lib\net45\StackExchange.Redis.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\StackExchange.Redis.1.0.414\lib\net45\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,7 +51,7 @@
       <Project>{1cb68d8f-fbce-4dac-858c-fed6fce48306}</Project>
       <Name>Inversion.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\submodules\inversion\Inversion\Inversion.csproj">
+    <ProjectReference Include="$(SolutionDir)submodules\inversion\Inversion\Inversion.csproj">
       <Project>{a2dbf0b8-b672-4237-8a0b-864bb0474054}</Project>
       <Name>Inversion</Name>
     </ProjectReference>

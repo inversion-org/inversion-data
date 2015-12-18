@@ -33,15 +33,15 @@
   <ItemGroup>
     <Reference Include="MongoDB.Bson, Version=2.0.0.828, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MongoDB.Bson.2.0.0\lib\net45\MongoDB.Bson.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\MongoDB.Bson.2.0.0\lib\net45\MongoDB.Bson.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver, Version=2.0.0.828, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MongoDB.Driver.2.0.0\lib\net45\MongoDB.Driver.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\MongoDB.Driver.2.0.0\lib\net45\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver.Core, Version=2.0.0.828, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MongoDB.Driver.Core.2.0.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\MongoDB.Driver.Core.2.0.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,7 +60,7 @@
       <Project>{1cb68d8f-fbce-4dac-858c-fed6fce48306}</Project>
       <Name>Inversion.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\submodules\inversion\Inversion\Inversion.csproj">
+    <ProjectReference Include="$(SolutionDir)submodules\inversion\Inversion\Inversion.csproj">
       <Project>{a2dbf0b8-b672-4237-8a0b-864bb0474054}</Project>
       <Name>Inversion</Name>
     </ProjectReference>
