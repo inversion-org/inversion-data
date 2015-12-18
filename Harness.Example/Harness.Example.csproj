@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Harness.Example</RootNamespace>
     <AssemblyName>Harness.Example</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Inversion">
-      <HintPath>..\lib\Inversion.dll</HintPath>
-    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\packages\MongoDB.Bson.2.0.0\lib\net45\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -81,6 +79,10 @@
     <ProjectReference Include="..\Inversion.Data\Inversion.Data.csproj">
       <Project>{1cb68d8f-fbce-4dac-858c-fed6fce48306}</Project>
       <Name>Inversion.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\submodules\inversion\Inversion\Inversion.csproj">
+      <Project>{a2dbf0b8-b672-4237-8a0b-864bb0474054}</Project>
+      <Name>Inversion</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

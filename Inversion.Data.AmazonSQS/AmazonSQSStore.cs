@@ -55,17 +55,9 @@ namespace Inversion.Data
         {
             this.AssertIsStarted();
 
-            result = String.Empty;
+            result = "not supported";
 
-            ListQueuesResponse serviceResponse = this.Client.ListQueues(new ListQueuesRequest());
-
-            if (serviceResponse.QueueUrls.Count > 0)
-            {
-                return true;
-            }
-
-            result = "No queues could be listed.";
-            return false;
+            return true;
         }
     }
 }

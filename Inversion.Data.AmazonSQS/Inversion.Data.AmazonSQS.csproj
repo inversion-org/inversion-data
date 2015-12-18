@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Inversion.Data</RootNamespace>
     <AssemblyName>Inversion.Data.AmazonSQS</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,9 +39,6 @@
       <HintPath>..\packages\AWSSDK.SQS.3.1.0.2\lib\net45\AWSSDK.SQS.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Inversion">
-      <HintPath>..\lib\Inversion.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,6 +56,10 @@
     <ProjectReference Include="..\Inversion.Data\Inversion.Data.csproj">
       <Project>{1cb68d8f-fbce-4dac-858c-fed6fce48306}</Project>
       <Name>Inversion.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\submodules\inversion\Inversion\Inversion.csproj">
+      <Project>{a2dbf0b8-b672-4237-8a0b-864bb0474054}</Project>
+      <Name>Inversion</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
