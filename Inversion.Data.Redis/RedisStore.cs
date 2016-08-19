@@ -25,7 +25,7 @@ namespace Inversion.Data.Redis
             _databaseNumber = databaseNumber;
         }
 
-        public ConnectionMultiplexer InhabitConnectionMultiplexer()
+        private ConnectionMultiplexer InhabitConnectionMultiplexer()
         {
             ConfigurationOptions options = this.GetConfigurationOptions();
 
