@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using StackExchange.Redis;
 
 namespace Inversion.Data.Redis
 {
-    public class RedisStore : SyncBaseStore, IStoreHealth
+    public class RedisStore : StoreBase, IStoreHealth
     {
         private readonly string _connections;
 
@@ -14,6 +15,8 @@ namespace Inversion.Data.Redis
 
         private static readonly Dictionary<string, Tuple<ConnectionMultiplexer, int>> ConnectionMultiplexers =
             new Dictionary<string, Tuple<ConnectionMultiplexer, int>>();
+
+        private static readonly ReaderWriterLockSlim _lockSlim = new ReaderWriterLockSlim();
 
         private readonly int _databaseNumber;
 
@@ -31,12 +34,15 @@ namespace Inversion.Data.Redis
 
             try
             {
-                this.LockSlim.EnterWriteLock();
+                _lockSlim.EnterWriteLock();
 
                 if (!RedisStore.ConnectionMultiplexers.ContainsKey(_connections))
                 {
+                    StackExchange.Redis.ConnectionMultiplexer connectionMultiplexer =
+                        StackExchange.Redis.ConnectionMultiplexer.Connect(options);
+
                     RedisStore.ConnectionMultiplexers[_connections] =
-                        new Tuple<ConnectionMultiplexer, int>(ConnectionMultiplexer.Connect(options), 1);
+                        new Tuple<ConnectionMultiplexer, int>(connectionMultiplexer, 1);
                 }
                 else
                 {
@@ -48,7 +54,7 @@ namespace Inversion.Data.Redis
             }
             finally
             {
-                this.LockSlim.ExitWriteLock();
+                _lockSlim.ExitWriteLock();
             }
         }
 
@@ -56,7 +62,7 @@ namespace Inversion.Data.Redis
         {
             try
             {
-                this.LockSlim.EnterWriteLock();
+                _lockSlim.EnterWriteLock();
 
                 if (RedisStore.ConnectionMultiplexers.ContainsKey(_connections))
                 {
@@ -67,7 +73,7 @@ namespace Inversion.Data.Redis
             }
             finally
             {
-                this.LockSlim.ExitWriteLock();
+                _lockSlim.ExitWriteLock();
             }
         }
 
