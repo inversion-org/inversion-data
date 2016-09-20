@@ -25,6 +25,18 @@ namespace Inversion.Data.Store
             return false;
         }
 
+        public static char ReadChar(this IDataReader self, string columnName)
+        {
+            int ordinal = self.GetOrdinal(columnName);
+            return self.IsDBNull(ordinal) ? default(char) : self.GetChar(ordinal);
+        }
+
+        public static char? ReadCharOrNull(this IDataReader self, string columnName)
+        {
+            int ordinal = self.GetOrdinal(columnName);
+            return self.IsDBNull(ordinal) ? (char?) null : self.GetChar(ordinal);
+        }
+
         public static string ReadString(this IDataReader self, string columnName)
         {
             int ordinal = self.GetOrdinal(columnName);
