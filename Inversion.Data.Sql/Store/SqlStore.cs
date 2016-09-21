@@ -105,6 +105,17 @@ namespace Inversion.Data.Store
             return parameter;
         }
 
+        protected virtual IDbDataParameter _parameter(string name, char value)
+        {
+            IDbDataParameter parameter = _factory.CreateParameter();
+            if (parameter == null) throw new StoreProcessException("Unable to obtain a parameter object from the factory.");
+
+            parameter.DbType = DbType.String;
+            parameter.ParameterName = name;
+            parameter.Value = value;
+            return parameter;
+        }
+
         protected virtual IDbDataParameter _parameter(string name, long value)
         {
             IDbDataParameter parameter = _factory.CreateParameter();
