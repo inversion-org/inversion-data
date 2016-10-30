@@ -15,6 +15,7 @@ namespace Inversion.Data.Store
         private bool _isDisposed;
         private DbProviderFactory _factory;
         private IDbConnection _connection;
+        private int _commandTimeout = 30;
         private IDbTransaction _transaction;
         private IsolationLevel _preferredIsolationLevel = IsolationLevel.ReadCommitted;
 
@@ -43,6 +44,12 @@ namespace Inversion.Data.Store
         {
             get { return _preferredIsolationLevel; }
             set { _preferredIsolationLevel = value; }
+        }
+
+        public int CommandTimeout
+        {
+            get { return _commandTimeout; }
+            set { _commandTimeout = value; }
         }
 
         public SqlStore() : this(null) { }
@@ -196,6 +203,7 @@ namespace Inversion.Data.Store
             if (command == null) throw new StoreProcessException("Unable to obtain a command object from the factory.");
 
             command.Connection = _connection;
+            command.CommandTimeout = _commandTimeout;
 
             command.CommandText = sql;
             if (this.InTransaction)
