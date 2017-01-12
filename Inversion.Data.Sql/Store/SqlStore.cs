@@ -80,6 +80,41 @@ namespace Inversion.Data.Store
             return _parameter(name, value);
         }
 
+        public IDbDataParameter CreateParameter(string name, DateTime value)
+        {
+            return _parameter(name, value);
+        }
+
+        public IDbDataParameter CreateParameter(string name, int value)
+        {
+            return _parameter(name, value);
+        }
+
+        public IDbDataParameter CreateParameter(string name, char value)
+        {
+            return _parameter(name, value);
+        }
+
+        public IDbDataParameter CreateParameter(string name, long value)
+        {
+            return _parameter(name, value);
+        }
+
+        public IDbDataParameter CreateParameter(string name, byte[] value)
+        {
+            return _parameter(name, value);
+        }
+
+        public IDbDataParameter CreateParameter(string name, bool value)
+        {
+            return _parameter(name, value);
+        }
+
+        public IDbDataParameter CreateParameter(string name, Guid value)
+        {
+            return _parameter(name, value);
+        }
+
         protected virtual IDbDataParameter _parameter(string name, string value)
         {
             IDbDataParameter parameter = _factory.CreateParameter();
