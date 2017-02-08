@@ -7,7 +7,7 @@
     <ProjectGuid>{CE309CAF-9930-4993-9643-37ABA4BBDA25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Inversion.Data.Redis</RootNamespace>
+    <RootNamespace>Inversion.Data</RootNamespace>
     <AssemblyName>Inversion.Data.Redis</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,19 +44,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedisStore.cs" />
+    <Compile Include="Store\RedisStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Inversion.Data\Inversion.Data.csproj">
       <Project>{1cb68d8f-fbce-4dac-858c-fed6fce48306}</Project>
       <Name>Inversion.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)submodules\inversion\Inversion\Inversion.csproj">
-      <Project>{a2dbf0b8-b672-4237-8a0b-864bb0474054}</Project>
-      <Name>Inversion</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Inversion.Data.Redis.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

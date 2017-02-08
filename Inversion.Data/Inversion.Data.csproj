@@ -58,6 +58,7 @@
     <Compile Include="SyncBaseStore.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Inversion.Data.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

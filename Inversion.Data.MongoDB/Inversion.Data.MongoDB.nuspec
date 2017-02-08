@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Adam Christie</authors>
+    <owners>fractos</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>http://github.com/fractos/inversion-data</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Inversion.Data.MongoDB library</description>
+    <releaseNotes>No changes.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>web reactive behavioural framework mvc webapi</tags>
+    <dependencies>
+      <dependency id="Inversion.Data" version="1.0.0" />
+      <dependency id="MongoDB.Bson" version="2.0.0" />
+      <dependency id="MongoDB.Driver" version="2.0.0" />
+      <dependency id="MongoDB.Driver.Core" version="2.0.0" />
+    </dependencies>
+  </metadata>
+</package>
