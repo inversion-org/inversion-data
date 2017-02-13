@@ -11,15 +11,17 @@ namespace Inversion.Data
         protected AmazonSimpleNotificationServiceClient Client;
         private readonly string _accessKey;
         private readonly string _accessSecret;
+        private readonly bool _disableLogging;
 
         private bool _disposed;
 
-        public AmazonSNSStore(string topicArn, string region, string accessKey, string accessSecret)
+        public AmazonSNSStore(string topicArn, string region, string accessKey, string accessSecret, bool disableLogging = false)
         {
             this.TopicArn = topicArn;
             this.Region = region;
             _accessKey = accessKey;
             _accessSecret = accessSecret;
+            _disableLogging = disableLogging;
         }
 
         public override void Start()
@@ -29,7 +31,8 @@ namespace Inversion.Data
             AWSCredentials credentials = new BasicAWSCredentials(_accessKey, _accessSecret);
             AmazonSimpleNotificationServiceConfig config = new AmazonSimpleNotificationServiceConfig
             {
-                RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(this.Region)
+                RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(this.Region),
+                DisableLogging = _disableLogging
             };
             this.Client = new AmazonSimpleNotificationServiceClient(credentials, config);
         }
