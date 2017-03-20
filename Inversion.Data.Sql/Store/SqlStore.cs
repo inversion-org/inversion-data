@@ -279,9 +279,9 @@ namespace Inversion.Data.Store
                 {
                     _connection.Open();
                 }
-                catch
+                catch(Exception ex)
                 {
-                    throw new StoreProcessException("Unable to start the underlying connection for the store.");
+                    throw new StoreProcessException("Unable to start the underlying connection for the store.", ex);
                 }
             }
         }
