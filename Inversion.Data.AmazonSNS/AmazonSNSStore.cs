@@ -32,7 +32,8 @@ namespace Inversion.Data
             AmazonSimpleNotificationServiceConfig config = new AmazonSimpleNotificationServiceConfig
             {
                 RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(this.Region),
-                DisableLogging = _disableLogging
+                DisableLogging = _disableLogging,
+                UseHttp = true
             };
             this.Client = new AmazonSimpleNotificationServiceClient(credentials, config);
         }
