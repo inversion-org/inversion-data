@@ -1,4 +1,5 @@
 ﻿using System;
+using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.Model;
@@ -58,7 +59,9 @@ namespace Inversion.Data
 
             result = String.Empty;
 
-            ListTablesResponse response = this.Client.ListTables();
+            ListTablesResponse response = this.Client.ListTablesAsync(new ListTablesRequest {
+                Limit = 1
+            }).Result;
 
             if (response.TableNames.Count > 0)
             {
