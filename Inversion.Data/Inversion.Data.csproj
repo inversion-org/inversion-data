@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Inversion.Data</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>Adam Christie</Authors>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Inversion" Version="1.0.0" />
+    <PackageReference Include="Inversion" Version="1.0.*" />
     <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>
 
