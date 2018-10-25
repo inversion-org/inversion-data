@@ -15,7 +15,7 @@ namespace Inversion.Data
 
         private bool _disposed;
 
-        public AmazonSQSStore(string serviceUrl, string region, string accessKey, string accessSecret)
+        public AmazonSQSStore(string serviceUrl, string region, string accessKey="", string accessSecret="")
         {
             this.ServiceUrl = serviceUrl;
             this.Region = region;
@@ -27,7 +27,16 @@ namespace Inversion.Data
         {
             base.Start();
 
-            AWSCredentials credentials = new BasicAWSCredentials(_accessKey, _accessSecret);
+            AWSCredentials credentials = null;
+            if (!String.IsNullOrEmpty(_accessKey) && !String.IsNullOrEmpty(_accessSecret))
+            {
+                credentials = new BasicAWSCredentials(_accessKey, _accessSecret);
+            }
+            else
+            {
+                credentials = new Amazon.Runtime.InstanceProfileAWSCredentials();
+            }
+
             AmazonSQSConfig config = new AmazonSQSConfig
             {
                 ServiceURL = this.ServiceUrl,
