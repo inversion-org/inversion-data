@@ -12,15 +12,17 @@ namespace Inversion.Data
         protected AmazonSimpleNotificationServiceClient Client;
         private readonly string _accessKey;
         private readonly string _accessSecret;
+        private readonly AWSCredentials _credentials;
 
         private bool _disposed;
 
-        public AmazonSNSStore(string topicArn, string region, string accessKey="", string accessSecret="", string serviceURL="")
+        public AmazonSNSStore(string topicArn, string region, string accessKey="", string accessSecret="", string serviceURL="", AWSCredentials credentials = null)
         {
             this.TopicArn = topicArn;
             this.Region = region;
             _accessKey = accessKey;
             _accessSecret = accessSecret;
+            _credentials = credentials;
             this.ServiceURL = serviceURL;
         }
 
@@ -29,7 +31,11 @@ namespace Inversion.Data
             base.Start();
 
             AWSCredentials credentials = null;
-            if (!String.IsNullOrEmpty(_accessKey) && !String.IsNullOrEmpty(_accessSecret))
+            if (_credentials != null)
+            {
+                credentials = _credentials;
+            }
+            else if (!String.IsNullOrEmpty(_accessKey) && !String.IsNullOrEmpty(_accessSecret))
             {
                 credentials = new BasicAWSCredentials(_accessKey, _accessSecret);
             }
