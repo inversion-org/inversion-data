@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using StackExchange.Redis;
 
-namespace Inversion.Data.Redis
+namespace Inversion.Data.Store
 {
     public class RedisStore : StoreBase, IStoreHealth
     {
