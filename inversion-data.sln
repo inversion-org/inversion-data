@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inversion.Data", "Inversion.Data\Inversion.Data.csproj", "{1CB68D8F-FBCE-4DAC-858C-FED6FCE48306}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Example", "Harness.Example\Harness.Example.csproj", "{350FE932-D2EB-4EF2-A427-D48928736A00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inversion.Data.Sql", "Inversion.Data.Sql\Inversion.Data.Sql.csproj", "{1BDF9896-7D98-4BFA-B64B-DD31F79739F9}"
 EndProject
@@ -24,13 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inversion.Data.DynamoDB", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inversion.Data.AmazonSQS", "Inversion.Data.AmazonSQS\Inversion.Data.AmazonSQS.csproj", "{2F6FE6B7-A0E4-4B94-9B16-D5FD6037F74B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "inversion", "inversion", "{A83B41A7-F138-4A06-8A23-01B3BBB0A631}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inversion", "submodules\inversion\Inversion\Inversion.csproj", "{A2DBF0B8-B672-4237-8A0B-864BB0474054}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inversion.Naiad", "submodules\inversion\Inversion.Naiad\Inversion.Naiad.csproj", "{975446B0-DBC2-498F-94D4-2A6A20F9C5D0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inversion.Process", "submodules\inversion\Inversion.Process\Inversion.Process.csproj", "{37F59768-76EA-4D09-8976-BBC3540DB5AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inversion.Data.AmazonSNS", "Inversion.Data.AmazonSNS\Inversion.Data.AmazonSNS.csproj", "{DA6B3CB7-0EFE-46D0-B036-B5A3B046604E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,10 +34,6 @@ Global
 		{1CB68D8F-FBCE-4DAC-858C-FED6FCE48306}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CB68D8F-FBCE-4DAC-858C-FED6FCE48306}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CB68D8F-FBCE-4DAC-858C-FED6FCE48306}.Release|Any CPU.Build.0 = Release|Any CPU
-		{350FE932-D2EB-4EF2-A427-D48928736A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{350FE932-D2EB-4EF2-A427-D48928736A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{350FE932-D2EB-4EF2-A427-D48928736A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{350FE932-D2EB-4EF2-A427-D48928736A00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1BDF9896-7D98-4BFA-B64B-DD31F79739F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1BDF9896-7D98-4BFA-B64B-DD31F79739F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BDF9896-7D98-4BFA-B64B-DD31F79739F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -70,25 +58,12 @@ Global
 		{2F6FE6B7-A0E4-4B94-9B16-D5FD6037F74B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F6FE6B7-A0E4-4B94-9B16-D5FD6037F74B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F6FE6B7-A0E4-4B94-9B16-D5FD6037F74B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A2DBF0B8-B672-4237-8A0B-864BB0474054}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2DBF0B8-B672-4237-8A0B-864BB0474054}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2DBF0B8-B672-4237-8A0B-864BB0474054}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2DBF0B8-B672-4237-8A0B-864BB0474054}.Release|Any CPU.Build.0 = Release|Any CPU
-		{975446B0-DBC2-498F-94D4-2A6A20F9C5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{975446B0-DBC2-498F-94D4-2A6A20F9C5D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{975446B0-DBC2-498F-94D4-2A6A20F9C5D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{975446B0-DBC2-498F-94D4-2A6A20F9C5D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37F59768-76EA-4D09-8976-BBC3540DB5AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37F59768-76EA-4D09-8976-BBC3540DB5AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37F59768-76EA-4D09-8976-BBC3540DB5AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37F59768-76EA-4D09-8976-BBC3540DB5AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA6B3CB7-0EFE-46D0-B036-B5A3B046604E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA6B3CB7-0EFE-46D0-B036-B5A3B046604E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA6B3CB7-0EFE-46D0-B036-B5A3B046604E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA6B3CB7-0EFE-46D0-B036-B5A3B046604E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{A2DBF0B8-B672-4237-8A0B-864BB0474054} = {A83B41A7-F138-4A06-8A23-01B3BBB0A631}
-		{975446B0-DBC2-498F-94D4-2A6A20F9C5D0} = {A83B41A7-F138-4A06-8A23-01B3BBB0A631}
-		{37F59768-76EA-4D09-8976-BBC3540DB5AE} = {A83B41A7-F138-4A06-8A23-01B3BBB0A631}
 	EndGlobalSection
 EndGlobal

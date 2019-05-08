@@ -8,33 +8,51 @@ namespace Inversion.Data
     {
         protected readonly string TopicArn;
         protected readonly string Region;
+        protected readonly string ServiceURL;
         protected AmazonSimpleNotificationServiceClient Client;
         private readonly string _accessKey;
         private readonly string _accessSecret;
-        private readonly bool _disableLogging;
 
         private bool _disposed;
 
-        public AmazonSNSStore(string topicArn, string region, string accessKey, string accessSecret, bool disableLogging = false)
+        private readonly AWSCredentials _credentials;
+
+        public AmazonSNSStore(string topicArn, string region, string accessKey="", string accessSecret="", string serviceURL="", AWSCredentials credentials = null)
         {
             this.TopicArn = topicArn;
             this.Region = region;
             _accessKey = accessKey;
             _accessSecret = accessSecret;
-            _disableLogging = disableLogging;
+            _credentials = credentials;
+            this.ServiceURL = serviceURL;
         }
 
         public override void Start()
         {
             base.Start();
 
-            AWSCredentials credentials = new BasicAWSCredentials(_accessKey, _accessSecret);
+            AWSCredentials credentials = null;
+            if (_credentials != null)
+            {
+                credentials = _credentials;
+            }
+            else if (!String.IsNullOrEmpty(_accessKey) && !String.IsNullOrEmpty(_accessSecret))
+            {
+                credentials = new BasicAWSCredentials(_accessKey, _accessSecret);
+            }
+            else
+            {
+                credentials = new Amazon.Runtime.InstanceProfileAWSCredentials();
+            }
+
             AmazonSimpleNotificationServiceConfig config = new AmazonSimpleNotificationServiceConfig
             {
                 RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(this.Region),
-                DisableLogging = _disableLogging,
-                UseHttp = true
             };
+            if (!String.IsNullOrEmpty(this.ServiceURL))
+            {
+                config.ServiceURL = this.ServiceURL;
+            }
             this.Client = new AmazonSimpleNotificationServiceClient(credentials, config);
         }
 
