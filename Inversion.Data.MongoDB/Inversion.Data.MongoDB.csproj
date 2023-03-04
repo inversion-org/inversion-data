@@ -11,7 +11,7 @@
     <PackageReference Include="Inversion" Version="1.0.3" />
     <PackageReference Include="Inversion.Data" Version="1.0.4" />
     <PackageReference Include="MongoDB.BSON" Version="2.5.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
     <PackageReference Include="MongoDB.Driver.Core" Version="2.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
